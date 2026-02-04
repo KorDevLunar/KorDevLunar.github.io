@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="color-scheme" content="dark" />
+  <title>DrsAI Splash</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg:#121212;
+      --surface:#1A1A1A;
+      --surface2:#2A2A2A;
+      --on:#FFFFFF;
+      --muted:#A0A0A0;
+      --primary:#FF8C42;
+    }
+
+    html{ background: var(--bg); }
+
+    /* Ambient blob motion */
+    @keyframes driftA {
+      0% { transform: translate3d(-8%, -10%, 0) scale(1); opacity: .55; }
+      50% { transform: translate3d(8%, 10%, 0) scale(1.12); opacity: .75; }
+      100% { transform: translate3d(-8%, -10%, 0) scale(1); opacity: .55; }
+    }
+    @keyframes driftB {
+      0% { transform: translate3d(10%, -6%, 0) scale(1); opacity: .35; }
+      50% { transform: translate3d(-10%, 6%, 0) scale(1.18); opacity: .55; }
+      100% { transform: translate3d(10%, -6%, 0) scale(1); opacity: .35; }
+    }
+    @keyframes driftC {
+      0% { transform: translate3d(-6%, 10%, 0) scale(1); opacity: .25; }
+      50% { transform: translate3d(6%, -10%, 0) scale(1.15); opacity: .42; }
+      100% { transform: translate3d(-6%, 10%, 0) scale(1); opacity: .25; }
+    }
+
+    /* Logo glow */
+    @keyframes glow {
+      0%, 100% { filter: drop-shadow(0 0 10px rgba(255,140,66,.30)) drop-shadow(0 0 28px rgba(255,140,66,.18)); transform: translateZ(0) scale(1); }
+      50% { filter: drop-shadow(0 0 14px rgba(255,140,66,.48)) drop-shadow(0 0 44px rgba(255,140,66,.22)); transform: translateZ(0) scale(1.02); }
+    }
+
+    /* Loading dots */
+    @keyframes bounceDot {
+      0%, 80%, 100% { transform: translateY(0); opacity: .55; }
+      40% { transform: translateY(-6px); opacity: 1; }
+    }
+
+    /* Loading text pulse */
+    @keyframes pulseSoft {
+      0%, 100% { opacity: .65; }
+      50% { opacity: 1; }
+    }
+
+    /* Indeterminate ring */
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    /* Subtle grain */
+    .grain::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      pointer-events:none;
+      background-image:
+        radial-gradient(circle at 20% 20%, rgba(255,255,255,.04) 0, rgba(255,255,255,0) 35%),
+        radial-gradient(circle at 70% 60%, rgba(255,255,255,.03) 0, rgba(255,255,255,0) 40%),
+        radial-gradient(circle at 40% 80%, rgba(255,255,255,.02) 0, rgba(255,255,255,0) 45%);
+      mix-blend-mode: overlay;
+      opacity: .35;
+    }
+  </style>
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { pretendard: ['Pretendard', 'system-ui', 'sans-serif'] },
+          colors: {
+            bg: 'var(--bg)',
+            surface: 'var(--surface)',
+            surface2: 'var(--surface2)',
+            on: 'var(--on)',
+            muted: 'var(--muted)',
+            primary: 'var(--primary)'
+          },
+          boxShadow: {
+            m3: '0 14px 40px rgba(0,0,0,.45)',
+            m3soft: '0 10px 28px rgba(0,0,0,.38)'
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body>
+  <div class="min-h-screen w-full font-pretendard bg-bg text-on relative overflow-hidden">
+
+    <!-- Background gradient (top-left -> bottom-right) -->
+    <div class="absolute inset-0">
+      <div class="absolute inset-0 bg-gradient-to-br from-[#24160E] via-bg to-[#141414]"></div>
+      <div class="absolute inset-0 opacity-[0.18] bg-[radial-gradient(ellipse_at_top_left,rgba(255,140,66,0.40),rgba(18,18,18,0)_55%)]"></div>
+      <div class="absolute inset-0 opacity-[0.12] bg-[radial-gradient(ellipse_at_bottom_right,rgba(255,140,66,0.28),rgba(18,18,18,0)_55%)]"></div>
+    </div>
+
+    <!-- Abstract animated circles/shapes -->
+    <div class="absolute inset-0">
+      <div class="absolute -top-24 -left-24 h-72 w-72 rounded-full bg-[radial-gradient(circle_at_30%_30%,rgba(255,140,66,0.40),rgba(255,140,66,0)_62%)] blur-2xl" style="animation: driftA 7.5s ease-in-out infinite;"></div>
+      <div class="absolute top-40 -right-32 h-80 w-80 rounded-full bg-[radial-gradient(circle_at_40%_40%,rgba(255,140,66,0.22),rgba(255,140,66,0)_65%)] blur-2xl" style="animation: driftB 9s ease-in-out infinite;"></div>
+      <div class="absolute -bottom-32 left-10 h-96 w-96 rounded-full bg-[radial-gradient(circle_at_50%_50%,rgba(255,140,66,0.18),rgba(255,140,66,0)_68%)] blur-2xl" style="animation: driftC 10.5s ease-in-out infinite;"></div>
+      <div class="absolute inset-0 grain"></div>
+    </div>
+
+    <!-- Content -->
+    <main class="relative z-10 min-h-screen w-full flex flex-col items-center justify-center px-6">
+
+      <!-- Logo block (100x100-ish) -->
+      <section class="flex flex-col items-center">
+        <div class="relative" style="animation: glow 2.8s ease-in-out infinite;">
+          <!-- Material 3-ish container: rounded, subtle outline, tonal surface -->
+          <div class="h-[104px] w-[104px] rounded-[28px] bg-surface/70 ring-1 ring-white/10 shadow-m3soft flex items-center justify-center backdrop-blur-xl">
+            <div class="flex flex-col items-center leading-none">
+              <div class="text-[34px] font-extrabold tracking-[-0.04em]">
+                <span class="text-primary">Drs</span><span class="text-on">AI</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Soft halo ring -->
+          <div class="pointer-events-none absolute -inset-6 rounded-[38px] bg-[radial-gradient(circle_at_50%_50%,rgba(255,140,66,0.22),rgba(255,140,66,0)_65%)] blur-xl"></div>
+        </div>
+
+        <!-- Spacing 50px -->
+        <div class="h-[50px]"></div>
+
+        <!-- Loading (dots only) -->
+        <div class="flex items-center justify-center" aria-label="로딩 중">
+          <div class="flex items-center gap-2.5">
+            <span class="h-2.5 w-2.5 rounded-full bg-primary shadow-[0_0_10px_rgba(255,140,66,0.4)]" style="animation: bounceDot 1s infinite; animation-delay: 0ms;"></span>
+            <span class="h-2.5 w-2.5 rounded-full bg-primary shadow-[0_0_10px_rgba(255,140,66,0.4)]" style="animation: bounceDot 1s infinite; animation-delay: 150ms;"></span>
+            <span class="h-2.5 w-2.5 rounded-full bg-primary shadow-[0_0_10px_rgba(255,140,66,0.4)]" style="animation: bounceDot 1s infinite; animation-delay: 300ms;"></span>
+          </div>
+        </div>
+
+        <!-- Spacing 30px -->
+        <div class="h-[30px]"></div>
+
+        <p class="text-[14px] font-normal text-muted tracking-[-0.01em]" style="animation: pulseSoft 1.6s ease-in-out infinite;">
+          최상의 수면 케어를 위해 준비 중입니다
+        </p>
+      </section>
+    </main>
+
+    <!-- Bottom info (optional) -->
+    <footer class="relative z-10 w-full px-6 pb-8 pt-4">
+      <div class="mx-auto max-w-sm">
+        <div class="flex items-center justify-between text-[12px] text-white/45">
+          <span>v1.0.0</span>
+          <div class="flex items-center gap-2">
+            <span class="inline-flex h-1.5 w-1.5 rounded-full bg-primary/80"></span>
+            <span>데이터 동기화 중... 0%</span>
+          </div>
+        </div>
+        <div class="mt-3 h-1.5 w-full rounded-full bg-white/10 overflow-hidden">
+          <div class="h-full w-[30%] rounded-full bg-gradient-to-r from-primary/70 to-primary"></div>
+        </div>
+      </div>
+    </footer>
+
+  </div>
+</body>
+</html>
