@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DrsAI 로그인</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Pretendard:wght@100;200;300;400;500;600;700;800;900&display=swap');
+  </style>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            pretendard: ["Pretendard", "ui-sans-serif", "system-ui", "-apple-system", "Segoe UI", "Roboto"]
+          },
+          colors: {
+            drs: {
+              bg: "#121212",
+              header: "#1A1A1A",
+              surface: "#2A2A2A",
+              border: "#404040",
+              on: "#FFFFFF",
+              on2: "#E0E0E0",
+              off: "#616161",
+              primary: "#FF8C42"
+            },
+            kakao: "#FFE812",
+            naver: "#00C73C"
+          },
+          boxShadow: {
+            soft: "0 16px 40px rgba(0,0,0,.45)",
+            ring: "0 0 0 3px rgba(255,140,66,.18)"
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body>
+  <div class="w-full h-screen flex flex-col bg-drs-bg font-pretendard text-drs-on">
+    <!-- Main -->
+    <main class="flex-1 overflow-y-auto px-5 pt-7 pb-[34px]">
+      <!-- Title -->
+        <section class="mt-4 mb-10">
+        <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-primary/20 to-primary/5 ring-1 ring-white/10 flex items-center justify-center mb-4 shadow-glow">
+            <iconify-icon icon="lucide:moon" class="text-[24px] text-primary"></iconify-icon>
+        </div>
+        <h1 class="text-[30px] font-bold leading-tight mb-2">
+            반가워요!<br>
+            <span class="text-primary">DrsAI</span>에 로그인하세요
+        </h1>
+        <p class="text-[14px] text-muted">스마트한 수면 관리를 다시 시작해볼까요?</p>
+        </section>
+
+      <!-- Form -->
+      <section class="mt-8">
+        <form>
+          <!-- ID / Email -->
+          <div>
+            <label for="login-id" class="block text-[13px] font-medium text-drs-on2/80">아이디 또는 이메일</label>
+            <div class="mt-2 relative">
+              <span class="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-drs-on2/60">
+                <iconify-icon icon="lucide:mail" class="text-[18px]"></iconify-icon>
+              </span>
+              <input
+                id="login-id"
+                name="login-id"
+                type="email"
+                inputmode="email"
+                autocomplete="username"
+                placeholder="example@email.com"
+                class="h-[52px] w-full rounded-xl bg-drs-surface ring-1 ring-drs-border pl-11 pr-4 text-[15px] text-drs-on placeholder:text-drs-on2/40 outline-none transition focus:ring-2 focus:ring-drs-primary focus:shadow-ring"
+              />
+            </div>
+          </div>
+
+          <!-- Password -->
+          <div class="mt-5">
+            <label for="login-password" class="block text-[13px] font-medium text-drs-on2/80">비밀번호</label>
+            <div class="mt-2 relative">
+              <span class="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-drs-on2/60">
+                <iconify-icon icon="lucide:lock" class="text-[18px]"></iconify-icon>
+              </span>
+              <input
+                id="login-password"
+                name="login-password"
+                type="password"
+                autocomplete="current-password"
+                placeholder="비밀번호를 입력하세요"
+                class="h-[52px] w-full rounded-xl bg-drs-surface ring-1 ring-drs-border pl-11 pr-12 text-[15px] text-drs-on placeholder:text-drs-on2/40 outline-none transition focus:ring-2 focus:ring-drs-primary focus:shadow-ring"
+              />
+              <button
+                type="button"
+                class="absolute right-2 top-1/2 -translate-y-1/2 h-11 w-11 inline-flex items-center justify-center rounded-xl text-drs-on2/70 hover:bg-white/5 active:bg-white/10 transition"
+                aria-label="비밀번호 표시/숨김"
+              >
+                <iconify-icon icon="lucide:eye" class="text-[18px]"></iconify-icon>
+              </button>
+            </div>
+          </div>
+
+          <!-- Options -->
+          <div class="mt-5 flex flex-col gap-3">
+            <label class="flex items-center gap-3">
+              <input
+                type="checkbox"
+                class="h-[18px] w-[18px] rounded-[5px] border border-drs-border bg-drs-surface text-drs-primary focus:ring-2 focus:ring-drs-primary/60 focus:ring-offset-0"
+                checked
+              />
+              <span class="text-[14px] text-drs-on2/85">자동 로그인</span>
+            </label>
+            <label class="flex items-center gap-3">
+              <input
+                type="checkbox"
+                class="h-[18px] w-[18px] rounded-[5px] border border-drs-border bg-drs-surface text-drs-primary focus:ring-2 focus:ring-drs-primary/60 focus:ring-offset-0"
+              />
+              <span class="text-[14px] text-drs-on2/85">계정 정보 기억하기</span>
+            </label>
+          </div>
+
+          <!-- Login Button -->
+          <div class="mt-7">
+            <button
+              type="submit"
+              class="h-[52px] w-full rounded-xl bg-drs-primary text-[#1A1A1A] text-[16px] font-semibold tracking-tight shadow-soft hover:brightness-105 active:brightness-95 transition"
+              aria-label="로그인"
+            >
+              로그인
+            </button>
+          </div>
+
+          <!-- Links -->
+          <div class="mt-5 flex items-center justify-center gap-2 text-[13px]">
+            <a id="login-find-id-link" href="#" class="text-drs-on2/70 hover:text-drs-primary transition">아이디 찾기</a>
+            <span class="text-drs-on2/30">|</span>
+            <a id="login-find-password-link" href="#" class="text-drs-on2/70 hover:text-drs-primary transition">비밀번호 찾기</a>
+            <span class="text-drs-on2/30">|</span>
+            <a id="login-signup-link" href="#" class="text-drs-primary hover:text-drs-primary/90 transition font-medium">회원가입</a>
+          </div>
+        </form>
+      </section>
+
+      <!-- Social Login -->
+      <section class="mt-9">
+        <div class="flex items-center gap-3">
+          <div class="h-px flex-1 bg-white/10"></div>
+          <h2 class="text-[13px] font-medium text-drs-on2/70">다른 방법으로 로그인</h2>
+          <div class="h-px flex-1 bg-white/10"></div>
+        </div>
+
+        <div class="flex items-center justify-center gap-6">
+            <button type="button" class="group relative transition-transform hover:-translate-y-1 active:scale-95">
+            <img src="/images/kakao_login.png" alt="Kakao Login" class="w-[52px] h-[52px] rounded-full object-cover shadow-lg ring-1 ring-white/5 group-hover:ring-white/20 transition-all">
+            <div class="absolute -bottom-6 left-1/2 -translate-x-1/2 text-[11px] text-white/0 group-hover:text-white/50 transition-colors whitespace-nowrap">카카오</div>
+            </button>
+
+            <button type="button" class="group relative transition-transform hover:-translate-y-1 active:scale-95">
+            <img src="/images/naver_login.png" alt="Naver Login" class="w-[52px] h-[52px] rounded-full object-cover shadow-lg ring-1 ring-white/5 group-hover:ring-white/20 transition-all">
+            <div class="absolute -bottom-6 left-1/2 -translate-x-1/2 text-[11px] text-white/0 group-hover:text-white/50 transition-colors whitespace-nowrap">네이버</div>
+            </button>
+
+            <button type="button" class="group relative transition-transform hover:-translate-y-1 active:scale-95">
+            <img src="/images/apple_login.png" alt="Apple Login" class="w-[52px] h-[52px] rounded-full object-cover shadow-lg ring-1 ring-white/5 group-hover:ring-white/20 transition-all">
+            <div class="absolute -bottom-6 left-1/2 -translate-x-1/2 text-[11px] text-white/0 group-hover:text-white/50 transition-colors whitespace-nowrap">Apple</div>
+            </button>
+        </div>
+
+        <p class="mt-5 text-center text-[12px] leading-relaxed text-drs-on2/50">
+          로그인하면 <a id="login-terms-link" href="#" class="text-drs-on2/70 hover:text-drs-primary transition">이용약관</a> 및
+          <a id="login-privacy-link" href="#" class="text-drs-on2/70 hover:text-drs-primary transition">개인정보 처리방침</a>에 동의한 것으로 간주됩니다.
+        </p>
+      </section>
+    </main>
+  </div>
+</body>
+</html>
