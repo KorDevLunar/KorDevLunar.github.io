@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+  <title>DrsAI - 등록 실패</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Pretendard:wght@100;200;300;400;500;600;700;800;900&display=swap');
+    
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes pulseRed {
+      0%, 100% { box-shadow: 0 0 20px rgba(255, 82, 82, 0.1); transform: scale(1); }
+      50% { box-shadow: 0 0 40px rgba(255, 82, 82, 0.3); transform: scale(1.05); }
+    }
+  </style>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { pretendard: ["Pretendard", "ui-sans-serif", "system-ui"] },
+          colors: {
+            bg: "#121212",
+            surface: "#1E1E1E",
+            primary: "#FF8C42",
+            on: "#FFFFFF",
+            muted: "#9CA3AF",
+            error: "#FF5252"
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-bg text-on font-pretendard h-[100dvh] flex flex-col overflow-hidden relative">
+
+  <div class="absolute inset-0 overflow-hidden pointer-events-none">
+    <div class="absolute top-[-10%] right-[-10%] w-[400px] h-[400px] bg-error/5 rounded-full blur-[100px]"></div>
+  </div>
+
+  <header class="relative z-20 shrink-0 px-6 pt-[calc(1rem+env(safe-area-inset-top))] h-[60px] flex items-center justify-center">
+  </header>
+
+  <main class="relative z-10 flex-1 flex flex-col w-full px-6 justify-center pb-6">
+    
+    <div class="flex flex-col gap-8 w-full">
+      
+      <div class="flex flex-col items-center animate-[fadeIn_0.5s_ease-out]">
+          <div class="w-24 h-24 rounded-full bg-error/10 flex items-center justify-center mb-6 ring-1 ring-error/20" style="animation: pulseRed 3s infinite ease-in-out;">
+              <iconify-icon icon="lucide:wifi-off" class="text-[40px] text-error drop-shadow-md"></iconify-icon>
+          </div>
+          <h1 class="text-[26px] font-bold text-center leading-tight">
+            기기 연결에<br>
+            <span class="text-error">실패했어요</span>
+          </h1>
+          <p class="text-[14px] text-muted mt-2">네트워크 상태를 확인하고 다시 시도해 주세요.</p>
+      </div>
+
+      <div class="w-full bg-[#1E1E1E] rounded-[24px] border border-white/5 p-6 animate-[fadeIn_0.6s_ease-out_0.2s_both]">
+          <h3 class="text-[15px] font-semibold text-white mb-5 flex items-center gap-2">
+              <iconify-icon icon="lucide:check-circle-2" class="text-white/40"></iconify-icon>
+              체크 리스트
+          </h3>
+          
+          <div class="space-y-4">
+              <div class="flex gap-4 items-start">
+                  <div class="shrink-0 w-5 h-5 rounded-full bg-white/10 flex items-center justify-center mt-0.5 text-white/70 text-[11px] font-bold font-mono">1</div>
+                  <div>
+                      <p class="text-[14px] text-white/90 font-medium">Wi-Fi 비밀번호 확인</p>
+                      <p class="text-[12px] text-white/50 leading-snug">입력하신 비밀번호가 정확한지 확인해 주세요.</p>
+                  </div>
+              </div>
+
+              <div class="h-px bg-white/5 w-full ml-9"></div>
+
+              <div class="flex gap-4 items-start">
+                  <div class="shrink-0 w-5 h-5 rounded-full bg-white/10 flex items-center justify-center mt-0.5 text-white/70 text-[11px] font-bold font-mono">2</div>
+                  <div>
+                      <p class="text-[14px] text-white/90 font-medium">2.4GHz 네트워크</p>
+                      <p class="text-[12px] text-white/50 leading-snug">5GHz 대역은 지원하지 않습니다.</p>
+                  </div>
+              </div>
+
+              <div class="h-px bg-white/5 w-full ml-9"></div>
+
+              <div class="flex gap-4 items-start">
+                  <div class="shrink-0 w-5 h-5 rounded-full bg-white/10 flex items-center justify-center mt-0.5 text-white/70 text-[11px] font-bold font-mono">3</div>
+                  <div>
+                      <p class="text-[14px] text-white/90 font-medium">기기 전원 상태</p>
+                      <p class="text-[12px] text-white/50 leading-snug">제품 전원이 켜져 있고 거리가 가까운지 확인.</p>
+                  </div>
+              </div>
+          </div>
+      </div>
+    
+    </div>
+  </main>
+
+  <footer class="relative z-20 w-full px-6 pb-[calc(2rem+env(safe-area-inset-bottom))] bg-bg pt-2 shrink-0">
+    <button onclick="location.href='/mat_register.html'" type="button" class="w-full h-[56px] rounded-2xl bg-gradient-to-r from-[#FF8C42] to-[#FF6A1A] text-[#121212] text-[16px] font-bold shadow-[0_4px_20px_rgba(255,140,66,0.3)] hover:brightness-110 active:scale-[0.98] transition-all">
+      다시 시도하기
+    </button>
+  </footer>
+
+</body>
+</html>

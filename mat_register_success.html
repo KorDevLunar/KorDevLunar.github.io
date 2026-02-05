@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+  <title>DrsAI - 등록 완료</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Pretendard:wght@100;200;300;400;500;600;700;800;900&display=swap');
+    
+    /* 체크 아이콘 애니메이션 */
+    @keyframes checkDraw {
+      0% { transform: scale(0); opacity: 0; }
+      50% { transform: scale(1.2); opacity: 1; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+    
+    /* 배경 파티클 효과 */
+    @keyframes float {
+      0% { transform: translateY(0px) rotate(0deg); opacity: 0; }
+      50% { opacity: 0.8; }
+      100% { transform: translateY(-100px) rotate(360deg); opacity: 0; }
+    }
+    
+    .particle {
+      position: absolute;
+      width: 6px;
+      height: 6px;
+      background: rgba(255, 140, 66, 0.4);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+  </style>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { pretendard: ["Pretendard", "ui-sans-serif", "system-ui"] },
+          colors: {
+            bg: "#121212",
+            surface: "#1E1E1E",
+            primary: "#FF8C42",
+            on: "#FFFFFF",
+            muted: "#9CA3AF"
+          },
+          boxShadow: {
+            glow: "0 0 25px rgba(255,140,66,0.15)",
+            input: "inset 0 2px 4px rgba(0,0,0,0.2)"
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-bg text-on font-pretendard h-[100dvh] flex flex-col overflow-hidden relative">
+
+  <div class="absolute inset-0 overflow-hidden pointer-events-none">
+    <div class="absolute top-[-10%] left-[-10%] w-[300px] h-[300px] bg-primary/10 rounded-full blur-[80px]"></div>
+    <div class="absolute bottom-[-10%] right-[-10%] w-[300px] h-[300px] bg-primary/10 rounded-full blur-[80px]"></div>
+    <div class="particle" style="left: 20%; top: 60%; animation: float 4s infinite 0s;"></div>
+    <div class="particle" style="left: 80%; top: 50%; animation: float 5s infinite 1s;"></div>
+    <div class="particle" style="left: 50%; top: 70%; animation: float 6s infinite 0.5s;"></div>
+  </div>
+
+  <header class="relative z-20 shrink-0 px-6 pt-[calc(1rem+env(safe-area-inset-top))] pb-2">
+    <!-- <div class="flex items-center justify-end">
+      <button class="w-10 h-10 inline-flex items-center justify-center rounded-full text-white/70 hover:bg-white/10 transition">
+        <iconify-icon icon="lucide:x" width="24"></iconify-icon>
+      </button>
+    </div> -->
+  </header>
+
+  <main class="relative z-10 flex-1 flex flex-col items-center justify-center w-full px-6 -mt-10">
+    
+    <div class="relative w-32 h-32 mb-8 flex items-center justify-center">
+        <div class="absolute inset-0 rounded-full bg-primary/10 animate-ping" style="animation-duration: 2s;"></div>
+        <div class="absolute inset-4 rounded-full bg-primary/20 blur-md"></div>
+        
+        <div class="relative w-24 h-24 rounded-full bg-gradient-to-br from-primary to-[#FF6A1A] flex items-center justify-center shadow-[0_10px_30px_rgba(255,140,66,0.4)]" style="animation: checkDraw 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;">
+            <iconify-icon icon="lucide:check" class="text-[48px] text-white"></iconify-icon>
+        </div>
+    </div>
+
+    <div class="text-center mb-10 animate-[fadeIn_0.5s_ease-out_0.3s_both]">
+      <h1 class="text-[28px] font-bold leading-tight mb-2">
+        기기 등록이<br>
+        <span class="text-primary">완료되었습니다!</span>
+      </h1>
+      <p class="text-[15px] text-muted">
+        이제 DrsAI와 함께 스마트한 수면을 경험해보세요.
+      </p>
+    </div>
+
+    <div class="w-full animate-[fadeIn_0.5s_ease-out_0.5s_both]">
+        <label class="text-[13px] font-medium text-white/60 ml-1 mb-2 block">기기 별명 설정 (선택)</label>
+        <div class="w-full h-[60px] rounded-2xl bg-[#1E1E1E] border border-white/10 flex items-center px-4 focus-within:border-primary/50 focus-within:ring-1 focus-within:ring-primary/50 transition-all shadow-input">
+            <iconify-icon icon="lucide:tag" class="text-white/40 text-[20px] mr-3"></iconify-icon>
+            <input type="text" value="안방 매트" class="flex-1 bg-transparent text-white font-medium placeholder:text-white/20 outline-none h-full">
+            <button type="button" class="p-2 -mr-2 text-white/30 hover:text-white transition-colors h-[36px]">
+                <iconify-icon icon="lucide:x-circle" class="text-[20px]"></iconify-icon>
+            </button>
+        </div>
+        <p class="text-[12px] text-white/30 mt-2 ml-1">나중에 설정에서 변경할 수 있습니다.</p>
+    </div>
+
+  </main>
+
+  <footer class="relative z-20 w-full px-6 pb-[calc(2rem+env(safe-area-inset-bottom))]">
+    <button type="button" onclick="preview_end();" class="w-full h-[56px] rounded-2xl bg-primary text-[#121212] text-[16px] font-bold shadow-[0_4px_20px_rgba(255,140,66,0.3)] hover:brightness-110 active:scale-[0.98] transition-all">
+      시작하기
+    </button>
+  </footer>
+
+  <style>
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+
+
+  <script>
+    function preview_end(){
+        if(confirm('프리뷰가 종료되었습니다. 실패 페이지를 확인하시겠습니까?')){
+            location.href = "mat_register_fail.html";
+        }
+    }
+  </script>
+</body>
+</html>
