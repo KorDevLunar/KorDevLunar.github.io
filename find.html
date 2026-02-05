@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+  <title>DrsAI - 기기 발견</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Pretendard:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+    /* 선택된 카드의 애니메이션 */
+    @keyframes borderPulse {
+      0% { box-shadow: 0 0 0 0 rgba(255, 140, 66, 0.4); }
+      70% { box-shadow: 0 0 0 6px rgba(255, 140, 66, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(255, 140, 66, 0); }
+    }
+
+    .selected-card {
+      animation: borderPulse 2s infinite;
+    }
+  </style>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { pretendard: ["Pretendard", "ui-sans-serif", "system-ui"] },
+          colors: {
+            bg: "#121212",
+            surface: "#1E1E1E",
+            primary: "#FF8C42",
+            on: "#FFFFFF",
+            muted: "#9CA3AF"
+          },
+          boxShadow: {
+            glow: "0 0 25px rgba(255,140,66,0.15)"
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="text-on bg-bg h-[100dvh] w-full flex flex-col relative font-pretendard overflow-hidden">
+
+  <div class="absolute top-0 left-0 right-0 h-[30vh] bg-gradient-to-b from-primary/5 to-transparent pointer-events-none z-0"></div>
+
+  <header class="relative z-20 shrink-0 px-6 pt-[calc(1rem+env(safe-area-inset-top))] pb-2">
+    <div class="flex items-center justify-between">
+      <button class="w-10 h-10 -ml-2 inline-flex items-center justify-center rounded-full text-white/70 hover:bg-white/10 transition" onclick="window.location.href='scan.html'">
+        <iconify-icon icon="lucide:chevron-left" width="24"></iconify-icon>
+      </button>
+      
+      <div class="flex flex-col items-center gap-1">
+        <span class="text-[11px] font-medium text-primary tracking-widest uppercase">Step 2 of 4</span>
+        <div class="flex gap-1">
+          <div class="w-2 h-1 rounded-full bg-primary/40"></div>
+          <div class="w-8 h-1 rounded-full bg-primary"></div> <div class="w-2 h-1 rounded-full bg-white/10"></div>
+          <div class="w-2 h-1 rounded-full bg-white/10"></div>
+        </div>
+      </div>
+
+      <button class="w-10 h-10 -mr-2 inline-flex items-center justify-center rounded-full text-white/70 hover:bg-white/10 transition">
+        <iconify-icon icon="lucide:help-circle" width="22"></iconify-icon>
+      </button>
+    </div>
+  </header>
+
+  <main class="relative z-10 flex-1 overflow-y-auto w-full px-6 pt-6 pb-24">
+    
+    <section class="mb-8 animate-[fadeIn_0.5s_ease-out]">
+      <div class="inline-flex items-center gap-2 mb-2 px-3 py-1 rounded-full bg-green-500/10 border border-green-500/20">
+        <iconify-icon icon="lucide:check-circle-2" class="text-green-500 text-[14px]"></iconify-icon>
+        <span class="text-[12px] font-medium text-green-500">스캔 완료</span>
+      </div>
+      <h1 class="text-[28px] font-bold leading-tight mb-2">
+        기기를 찾았어요!
+      </h1>
+      <p class="text-[15px] text-muted">
+        연결할 기기를 선택해 주세요.
+      </p>
+    </section>
+
+    <form class="space-y-4">
+      
+      <label class="relative block group cursor-pointer">
+        <input type="radio" name="device" value="mat" class="peer sr-only" checked onchange="updateSelection(this)">
+        
+        <div class="relative overflow-hidden rounded-[20px] bg-[#1E1E1E] border border-white/5 p-1 transition-all duration-300 peer-checked:border-primary peer-checked:bg-[#251A12] peer-checked:shadow-glow">
+          
+          <div class="flex items-center p-4">
+            <div class="w-14 h-14 rounded-2xl bg-white/5 flex items-center justify-center text-white/40 border border-white/5 transition-colors peer-checked:bg-primary/20 peer-checked:text-primary peer-checked:border-primary/20">
+               <iconify-icon icon="lucide:bed-double" width="24"></iconify-icon>
+            </div>
+
+            <div class="flex-1 ml-4">
+              <div class="flex items-center justify-between">
+                <span class="text-[16px] font-semibold text-white group-hover:text-primary/90 transition-colors">매트</span>
+                <div class="flex items-end gap-0.5" title="신호 강함">
+                  <div class="w-1 h-2 bg-primary rounded-[1px]"></div>
+                  <div class="w-1 h-3 bg-primary rounded-[1px]"></div>
+                  <div class="w-1 h-4 bg-primary rounded-[1px]"></div>
+                </div>
+              </div>
+              <p class="text-[13px] text-white/40 mt-0.5">Device ID: mat-01</p>
+            </div>
+
+            <div class="ml-4 w-6 h-6 rounded-full border-2 border-white/10 flex items-center justify-center transition-all peer-checked:border-primary peer-checked:bg-primary">
+              <iconify-icon icon="lucide:check" class="text-black text-[14px] opacity-0 peer-checked:opacity-100"></iconify-icon>
+            </div>
+          </div>
+
+          <div class="absolute inset-0 bg-gradient-to-r from-primary/5 to-transparent opacity-0 peer-checked:opacity-100 pointer-events-none"></div>
+        </div>
+      </label>
+
+      <label class="relative block group cursor-pointer">
+        <input type="radio" name="device" value="cube" class="peer sr-only" onchange="updateSelection(this)">
+        
+        <div class="relative overflow-hidden rounded-[20px] bg-[#1E1E1E] border border-white/5 p-1 transition-all duration-300 peer-checked:border-primary peer-checked:bg-[#251A12] peer-checked:shadow-glow">
+          <div class="flex items-center p-4">
+            <div class="w-14 h-14 rounded-2xl bg-white/5 flex items-center justify-center text-white/40 border border-white/5">
+               <iconify-icon icon="lucide:box" width="24"></iconify-icon>
+            </div>
+            <div class="flex-1 ml-4">
+              <div class="flex items-center justify-between">
+                <span class="text-[16px] font-semibold text-white/80">거실 큐브</span>
+                <div class="flex items-end gap-0.5 opacity-50">
+                    <div class="w-1 h-2 bg-white rounded-[1px]"></div>
+                    <div class="w-1 h-3 bg-white rounded-[1px]"></div>
+                    <div class="w-1 h-4 bg-white/20 rounded-[1px]"></div>
+                </div>
+              </div>
+              <p class="text-[13px] text-white/40 mt-0.5">Device ID: cube-01</p>
+            </div>
+            <div class="ml-4 w-6 h-6 rounded-full border-2 border-white/10 flex items-center justify-center transition-all peer-checked:border-primary peer-checked:bg-primary">
+              <iconify-icon icon="lucide:check" class="text-black text-[14px] opacity-0 peer-checked:opacity-100"></iconify-icon>
+            </div>
+          </div>
+        </div>
+      </label>
+      
+      <label class="relative block group cursor-pointer opacity-60 hover:opacity-100 transition-opacity">
+        <input type="radio" name="device" value="heater" class="peer sr-only" onchange="updateSelection(this)">
+        
+        <div class="relative overflow-hidden rounded-[20px] bg-[#1E1E1E] border border-white/5 p-1 transition-all duration-300 peer-checked:border-primary peer-checked:bg-[#251A12] peer-checked:shadow-glow">
+          <div class="flex items-center p-4">
+            <div class="w-14 h-14 rounded-2xl bg-white/5 flex items-center justify-center text-white/40 border border-white/5">
+               <iconify-icon icon="lucide:thermometer" width="24"></iconify-icon>
+            </div>
+            <div class="flex-1 ml-4">
+              <div class="flex items-center justify-between">
+                <span class="text-[16px] font-semibold text-white/80">히터</span>
+                 <div class="flex items-end gap-0.5 opacity-30">
+                    <div class="w-1 h-2 bg-white rounded-[1px]"></div>
+                    <div class="w-1 h-3 bg-white/20 rounded-[1px]"></div>
+                    <div class="w-1 h-4 bg-white/20 rounded-[1px]"></div>
+                </div>
+              </div>
+              <p class="text-[13px] text-white/40 mt-0.5">Device ID: heater-01</p>
+            </div>
+            <div class="ml-4 w-6 h-6 rounded-full border-2 border-white/10 flex items-center justify-center transition-all peer-checked:border-primary peer-checked:bg-primary">
+              <iconify-icon icon="lucide:check" class="text-black text-[14px] opacity-0 peer-checked:opacity-100"></iconify-icon>
+            </div>
+          </div>
+        </div>
+      </label>
+
+    </form>
+  </main>
+
+  <footer class="absolute bottom-0 left-0 right-0 z-20 p-6 bg-gradient-to-t from-[#121212] via-[#121212] to-transparent pb-[calc(1.5rem+env(safe-area-inset-bottom))]">
+    <div class="flex flex-col gap-3">
+        <button type="button" class="w-full h-[56px] rounded-2xl bg-primary text-[#121212] text-[16px] font-bold shadow-[0_4px_20px_rgba(255,140,66,0.3)] hover:brightness-110 active:scale-[0.98] transition-all">
+          이 기기 연결하기
+        </button>
+        <button type="button" onclick="window.location.href='scan.html'" class="w-full h-[40px] text-[14px] text-muted hover:text-white transition-colors">
+            다시 스캔하기
+        </button>
+    </div>
+  </footer>
+
+  <style>
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+
+  <script>
+    // 선택 효과 강화를 위한 스크립트 (선택 시 아이콘 색상 변경 등)
+    function updateSelection(radio) {
+        // 모든 아이콘 박스 초기화
+        const allIconBoxes = document.querySelectorAll('.group div[class*="w-14"]');
+        allIconBoxes.forEach(box => {
+            box.classList.remove('bg-primary/20', 'text-primary', 'border-primary/20');
+            box.classList.add('bg-white/5', 'text-white/40', 'border-white/5');
+        });
+
+        // 선택된 라디오의 아이콘 박스 활성화
+        if(radio.checked) {
+            const container = radio.nextElementSibling; // div.relative...
+            const iconBox = container.querySelector('div[class*="w-14"]');
+            iconBox.classList.remove('bg-white/5', 'text-white/40', 'border-white/5');
+            iconBox.classList.add('bg-primary/20', 'text-primary', 'border-primary/20');
+        }
+    }
+    
+    // 초기 로드 시 실행
+    document.addEventListener('DOMContentLoaded', () => {
+        const checkedRadio = document.querySelector('input[name="device"]:checked');
+        if(checkedRadio) updateSelection(checkedRadio);
+    });
+  </script>
+</body>
+</html>

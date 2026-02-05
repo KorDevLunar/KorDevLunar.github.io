@@ -7,6 +7,22 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
   <style>
+    :root{
+      --bg:#121212;
+      --surface:#1A1A1A;
+      --primary:#FF8C42;
+      --on:#FFFFFF;
+    }
+
+    html, body {
+      background: var(--bg);
+      touch-action: none;
+      overscroll-behavior: none;
+      -webkit-tap-highlight-color: transparent;
+      height: 100%;
+      overflow: hidden;
+    }
+    
     @import url('https://fonts.googleapis.com/css2?family=Pretendard:wght@100;200;300;400;500;600;700;800;900&display=swap');
   </style>
   <script>
@@ -18,14 +34,14 @@
           },
           colors: {
             drs: {
-              bg: "#121212",
+              bg: 'var(--bg)',
               header: "#1A1A1A",
-              surface: "#2A2A2A",
+              surface: 'var(--surface)',
               border: "#404040",
-              on: "#FFFFFF",
+              on: 'var(--on)',
               on2: "#E0E0E0",
               off: "#616161",
-              primary: "#FF8C42"
+              primary: 'var(--primary)'
             },
             kakao: "#FFE812",
             naver: "#00C73C"
@@ -45,14 +61,11 @@
     <main class="flex-1 overflow-y-auto px-5 pt-7 pb-[34px]">
       <!-- Title -->
         <section class="mt-4 mb-10">
-        <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-primary/20 to-primary/5 ring-1 ring-white/10 flex items-center justify-center mb-4 shadow-glow">
-            <iconify-icon icon="lucide:moon" class="text-[24px] text-primary"></iconify-icon>
-        </div>
-        <h1 class="text-[30px] font-bold leading-tight mb-2">
-            반가워요!<br>
-            <span class="text-primary">DrsAI</span>에 로그인하세요
-        </h1>
-        <p class="text-[14px] text-muted">스마트한 수면 관리를 다시 시작해볼까요?</p>
+          <div class="mb-6">
+              <div class="text-[42px] font-extrabold tracking-[-0.05em] leading-none">
+                <span class="text-primary">Drs</span><span class="text-white">AI</span>
+              </div>
+          </div>
         </section>
 
       <!-- Form -->
@@ -103,28 +116,23 @@
           </div>
 
           <!-- Options -->
-          <div class="mt-5 flex flex-col gap-3">
+          <div class="mt-5 flex flex-row gap-3 justify-between">
             <label class="flex items-center gap-3">
-              <input
-                type="checkbox"
-                class="h-[18px] w-[18px] rounded-[5px] border border-drs-border bg-drs-surface text-drs-primary focus:ring-2 focus:ring-drs-primary/60 focus:ring-offset-0"
-                checked
-              />
-              <span class="text-[14px] text-drs-on2/85">자동 로그인</span>
             </label>
             <label class="flex items-center gap-3">
               <input
                 type="checkbox"
                 class="h-[18px] w-[18px] rounded-[5px] border border-drs-border bg-drs-surface text-drs-primary focus:ring-2 focus:ring-drs-primary/60 focus:ring-offset-0"
               />
-              <span class="text-[14px] text-drs-on2/85">계정 정보 기억하기</span>
+              <span class="text-[14px] text-drs-on2/85">자동 로그인</span>
             </label>
           </div>
 
           <!-- Login Button -->
           <div class="mt-7">
             <button
-              type="submit"
+              type="button"
+              onclick="location.href='scan.html'"
               class="h-[52px] w-full rounded-xl bg-drs-primary text-[#1A1A1A] text-[16px] font-semibold tracking-tight shadow-soft hover:brightness-105 active:brightness-95 transition"
               aria-label="로그인"
             >
@@ -145,7 +153,7 @@
 
       <!-- Social Login -->
       <section class="mt-9">
-        <div class="flex items-center gap-3">
+        <div class="flex items-center gap-3 mb-9">
           <div class="h-px flex-1 bg-white/10"></div>
           <h2 class="text-[13px] font-medium text-drs-on2/70">다른 방법으로 로그인</h2>
           <div class="h-px flex-1 bg-white/10"></div>
@@ -168,9 +176,9 @@
             </button>
         </div>
 
-        <p class="mt-5 text-center text-[12px] leading-relaxed text-drs-on2/50">
+        <p class="mt-6 text-center text-[12px] leading-relaxed text-drs-on2/50">
           로그인하면 <a id="login-terms-link" href="#" class="text-drs-on2/70 hover:text-drs-primary transition">이용약관</a> 및
-          <a id="login-privacy-link" href="#" class="text-drs-on2/70 hover:text-drs-primary transition">개인정보 처리방침</a>에 동의한 것으로 간주됩니다.
+          <a id="login-privacy-link" href="#" class="text-drs-on2/70 hover:text-drs-primary transition">개인정보 처리방침</a>에<br/> 동의한 것으로 간주됩니다.
         </p>
       </section>
     </main>

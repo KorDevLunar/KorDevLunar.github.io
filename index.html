@@ -31,19 +31,16 @@
       overflow: hidden;
     }
 
-    /* 배경 은은한 움직임 */
     @keyframes drift {
       0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.3; }
       50% { transform: translate(10px, -10px) scale(1.1); opacity: 0.5; }
     }
 
-    /* 로고가 숨쉬는 듯한 효과 (Breathing) */
     @keyframes breathe {
       0%, 100% { transform: scale(1); filter: drop-shadow(0 0 15px rgba(255,140,66,0.2)); }
       50% { transform: scale(1.03); filter: drop-shadow(0 0 35px rgba(255,140,66,0.5)); }
     }
 
-    /* 텍스트 페이드인 */
     @keyframes fadeIn {
       from { opacity: 0; transform: translateY(10px); }
       to { opacity: 1; transform: translateY(0); }

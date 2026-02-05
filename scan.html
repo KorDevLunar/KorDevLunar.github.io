@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+  <title>DrsAI - 기기 스캔</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Pretendard:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+    :root {
+      --primary: #FF8C42;
+      --bg: #121212;
+    }
+
+    body {
+      background-color: var(--bg);
+      font-family: 'Pretendard', sans-serif;
+      overflow: hidden; /* 스크롤 방지 */
+    }
+
+    /* 레이더 파장 애니메이션 */
+    @keyframes ripple {
+      0% { transform: scale(0.8); opacity: 0.6; border-width: 1px; }
+      100% { transform: scale(2.5); opacity: 0; border-width: 0px; }
+    }
+
+    @keyframes rotateRadar {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    @keyframes pulseSoft {
+      0%, 100% { opacity: 0.5; transform: scale(1); }
+      50% { opacity: 1; transform: scale(1.05); }
+    }
+
+    .ripple-circle {
+      position: absolute;
+      border-radius: 50%;
+      border: 1px solid rgba(255, 140, 66, 0.3);
+      background: radial-gradient(circle, rgba(255,140,66,0.05) 0%, transparent 70%);
+      animation: ripple 3s cubic-bezier(0, 0.2, 0.8, 1) infinite;
+    }
+
+    /* 딜레이를 주어 연속적인 파장 생성 */
+    .ripple-1 { animation-delay: 0s; }
+    .ripple-2 { animation-delay: 1s; }
+    .ripple-3 { animation-delay: 2s; }
+
+  </style>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            bg: "#121212",
+            surface: "#1E1E1E",
+            primary: "#FF8C42",
+            on: "#FFFFFF",
+            muted: "#9CA3AF"
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="text-on h-[100dvh] w-full flex flex-col relative">
+
+  <div class="absolute top-0 left-0 right-0 h-[40vh] bg-gradient-to-b from-primary/10 to-transparent pointer-events-none z-0"></div>
+
+  <header class="relative z-20 shrink-0 px-6 pt-[calc(1rem+env(safe-area-inset-top))] pb-2">
+    <div class="flex items-center justify-between">
+      <button class="w-10 h-10 -ml-2 inline-flex items-center justify-center rounded-full text-white/70 hover:bg-white/10 transition">
+        <!-- <iconify-icon icon="lucide:chevron-left" width="24"></iconify-icon> -->
+      </button>
+      
+      <div class="flex flex-col items-center gap-1">
+        <span class="text-[11px] font-medium text-primary tracking-widest uppercase">Step 1 of 4</span>
+        <div class="flex gap-1">
+          <div class="w-8 h-1 rounded-full bg-primary"></div>
+          <div class="w-2 h-1 rounded-full bg-white/10"></div>
+          <div class="w-2 h-1 rounded-full bg-white/10"></div>
+          <div class="w-2 h-1 rounded-full bg-white/10"></div>
+        </div>
+      </div>
+
+      <button class="w-10 h-10 -mr-2 inline-flex items-center justify-center rounded-full text-white/70 hover:bg-white/10 transition">
+        <iconify-icon icon="lucide:help-circle" width="22"></iconify-icon>
+      </button>
+    </div>
+  </header>
+
+  <main class="relative z-10 flex-1 flex flex-col items-center justify-center w-full">
+    
+    <div class="absolute top-[8vh] text-center w-full px-6 animate-[fadeIn_0.5s_ease-out]">
+      <h1 class="text-[26px] font-bold leading-tight mb-2">기기를 찾고 있어요</h1>
+      <p class="text-[15px] text-muted">
+        DrsAI 제품들의 전원이 켜져 있는지<br>확인해 주세요.
+      </p>
+    </div>
+
+    <div class="relative flex items-center justify-center w-[320px] h-[320px]">
+      
+      <div class="ripple-circle ripple-1 inset-0"></div>
+      <div class="ripple-circle ripple-2 inset-0"></div>
+      <div class="ripple-circle ripple-3 inset-0"></div>
+
+      <div class="absolute inset-0 rounded-full animate-[rotateRadar_4s_linear_infinite] opacity-40 mix-blend-screen pointer-events-none"
+           style="background: conic-gradient(from 0deg, transparent 0deg, transparent 280deg, rgba(255,140,66,0.3) 360deg);">
+      </div>
+
+      <div class="relative z-10 w-28 h-28 rounded-full bg-surface/30 backdrop-blur-xl border border-white/10 shadow-[0_0_40px_rgba(255,140,66,0.15)] flex items-center justify-center"
+           style="animation: pulseSoft 3s ease-in-out infinite;">
+        <iconify-icon icon="lucide:radio" class="text-[42px] text-primary drop-shadow-[0_0_10px_rgba(255,140,66,0.5)]"></iconify-icon>
+        
+        <div class="absolute top-6 right-7 w-2.5 h-2.5 bg-green-500 rounded-full border-2 border-[#2a2a2a] shadow-lg hidden"></div>
+      </div>
+    </div>
+
+    <div class="mt-8 flex flex-col items-center gap-3">
+        <div class="flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/10 border border-primary/20">
+            <div class="w-1.5 h-1.5 rounded-full bg-primary animate-pulse"></div>
+            <span class="text-[13px] font-medium text-primary">주변 신호 스캔 중...</span>
+        </div>
+        <p class="text-[12px] text-white/30">평균 5~10초 정도 소요됩니다</p>
+    </div>
+
+  </main>
+
+  <footer class="relative z-20 w-full px-6 pb-[calc(2rem+env(safe-area-inset-bottom))]">
+    <div class="flex gap-3">
+        <button class="flex-1 h-[52px] rounded-2xl bg-surface border border-white/5 text-[15px] font-medium text-muted hover:text-white hover:bg-white/5 transition-colors">
+            수동 입력
+        </button>
+        <button id="connectBtn" class="flex-1 h-[52px] rounded-2xl bg-white/5 text-[15px] font-medium text-white/30 cursor-not-allowed border border-white/5" disabled>
+            연결하기
+        </button>
+    </div>
+  </footer>
+
+  <style>
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+
+  <script>
+    setTimeout(() => {
+        document.getElementById('connectBtn').disabled = false;
+        document.getElementById('connectBtn').classList.remove('cursor-not-allowed', 'text-white/30', 'bg-white/5');
+        document.getElementById('connectBtn').classList.add('bg-primary', 'text-black');
+    }, 3000);
+
+    document.getElementById('connectBtn').addEventListener('click', () => {
+        window.location.href = 'find.html';
+    });
+  </script>
+</body>
+</html>
