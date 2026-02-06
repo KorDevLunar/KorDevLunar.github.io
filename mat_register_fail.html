@@ -43,56 +43,62 @@
     <div class="absolute top-[-10%] right-[-10%] w-[400px] h-[400px] bg-error/5 rounded-full blur-[100px]"></div>
   </div>
 
-  <header class="relative z-20 shrink-0 px-6 pt-[calc(1rem+env(safe-area-inset-top))] h-[60px] flex items-center justify-center">
+  <header class="relative z-20 shrink-0 px-6 pt-[calc(0.5rem+env(safe-area-inset-top))] h-[50px] flex items-center justify-end">
+    <button class="w-10 h-10 -mr-2 inline-flex items-center justify-center rounded-full text-white/50 hover:bg-white/10 hover:text-white transition" onclick="location.href='index.html'">
+        <iconify-icon icon="lucide:x" width="24"></iconify-icon>
+    </button>
   </header>
 
-  <main class="relative z-10 flex-1 flex flex-col w-full px-6 justify-center pb-6">
+  <main class="relative z-10 flex-1 flex flex-col w-full px-6 justify-center min-h-0">
     
-    <div class="flex flex-col gap-8 w-full">
+    <div class="flex flex-col gap-5 w-full">
       
-      <div class="flex flex-col items-center animate-[fadeIn_0.5s_ease-out]">
-          <div class="w-24 h-24 rounded-full bg-error/10 flex items-center justify-center mb-6 ring-1 ring-error/20" style="animation: pulseRed 3s infinite ease-in-out;">
-              <iconify-icon icon="lucide:wifi-off" class="text-[40px] text-error drop-shadow-md"></iconify-icon>
+      <div class="flex flex-col items-center animate-[fadeIn_0.5s_ease-out] shrink-0">
+          <div class="w-20 h-20 rounded-full bg-error/10 flex items-center justify-center mb-4 ring-1 ring-error/20" style="animation: pulseRed 3s infinite ease-in-out;">
+              <iconify-icon icon="lucide:wifi-off" class="text-[36px] text-error drop-shadow-md"></iconify-icon>
           </div>
+          
           <h1 class="text-[26px] font-bold text-center leading-tight">
             기기 연결에<br>
             <span class="text-error">실패했어요</span>
           </h1>
-          <p class="text-[14px] text-muted mt-2">네트워크 상태를 확인하고 다시 시도해 주세요.</p>
+          <p class="text-[15px] text-muted mt-1.5">
+            네트워크 상태를 확인해 주세요.
+          </p>
       </div>
 
-      <div class="w-full bg-[#1E1E1E] rounded-[24px] border border-white/5 p-6 animate-[fadeIn_0.6s_ease-out_0.2s_both]">
-          <h3 class="text-[15px] font-semibold text-white mb-5 flex items-center gap-2">
+      <div class="w-full bg-[#1E1E1E] rounded-[24px] border border-white/5 p-5 animate-[fadeIn_0.6s_ease-out_0.2s_both] shrink-1 min-h-0 overflow-y-auto no-scrollbar">
+          <h3 class="text-[16px] font-bold text-white mb-4 flex items-center gap-2">
               <iconify-icon icon="lucide:check-circle-2" class="text-white/40"></iconify-icon>
               체크 리스트
           </h3>
           
-          <div class="space-y-4">
-              <div class="flex gap-4 items-start">
-                  <div class="shrink-0 w-5 h-5 rounded-full bg-white/10 flex items-center justify-center mt-0.5 text-white/70 text-[11px] font-bold font-mono">1</div>
-                  <div>
-                      <p class="text-[14px] text-white/90 font-medium">Wi-Fi 비밀번호 확인</p>
-                      <p class="text-[12px] text-white/50 leading-snug">입력하신 비밀번호가 정확한지 확인해 주세요.</p>
+          <div class="space-y-3">
+              <div class="flex gap-4 items-start w-full">
+                  <div class="shrink-0 w-6 h-6 rounded-full bg-white/10 flex items-center justify-center mt-0.5 text-white/70 text-[12px] font-bold font-mono">1</div>
+                  <div class="flex-1 min-w-0">
+                      <p class="text-[16px] text-white/90 font-bold truncate">Wi-Fi 비밀번호</p>
+                      <p class="text-[14px] text-white/50 leading-snug mt-0.5 break-keep">입력한 비밀번호가 맞는지 확인해 주세요.</p>
                   </div>
               </div>
 
-              <div class="h-px bg-white/5 w-full ml-9"></div>
+              <div class="h-px bg-white/5 ml-10"></div>
 
-              <div class="flex gap-4 items-start">
-                  <div class="shrink-0 w-5 h-5 rounded-full bg-white/10 flex items-center justify-center mt-0.5 text-white/70 text-[11px] font-bold font-mono">2</div>
-                  <div>
-                      <p class="text-[14px] text-white/90 font-medium">2.4GHz 네트워크</p>
-                      <p class="text-[12px] text-white/50 leading-snug">5GHz 대역은 지원하지 않습니다.</p>
+              <div class="flex gap-4 items-start w-full">
+                  <div class="shrink-0 w-6 h-6 rounded-full bg-white/10 flex items-center justify-center mt-0.5 text-white/70 text-[12px] font-bold font-mono">2</div>
+                  <div class="flex-1 min-w-0">
+                      <p class="text-[16px] text-white/90 font-bold truncate">2.4GHz 네트워크</p>
+                      <p class="text-[14px] text-white/50 leading-snug mt-0.5 break-keep">5GHz 대역은 지원하지 않습니다.</p>
                   </div>
               </div>
 
-              <div class="h-px bg-white/5 w-full ml-9"></div>
+              <div class="h-px bg-white/5 ml-10"></div>
 
-              <div class="flex gap-4 items-start">
-                  <div class="shrink-0 w-5 h-5 rounded-full bg-white/10 flex items-center justify-center mt-0.5 text-white/70 text-[11px] font-bold font-mono">3</div>
-                  <div>
-                      <p class="text-[14px] text-white/90 font-medium">기기 전원 상태</p>
-                      <p class="text-[12px] text-white/50 leading-snug">제품 전원이 켜져 있고 거리가 가까운지 확인.</p>
+              <div class="flex gap-4 items-start w-full">
+                  <div class="shrink-0 w-6 h-6 rounded-full bg-white/10 flex items-center justify-center mt-0.5 text-white/70 text-[12px] font-bold font-mono">3</div>
+                  <div class="flex-1 min-w-0">
+                      <p class="text-[16px] text-white/90 font-bold truncate">기기 전원 상태</p>
+                      <p class="text-[14px] text-white/50 leading-snug mt-0.5 break-keep">제품 전원이 켜져 있는지 확인해 주세요.</p>
                   </div>
               </div>
           </div>

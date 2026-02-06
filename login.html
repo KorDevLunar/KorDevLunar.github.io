@@ -2,28 +2,53 @@
 <html lang="ko">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
   <title>DrsAI 로그인</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
   <style>
+    @import url('https://fonts.googleapis.com/css2?family=Pretendard:wght@100;200;300;400;500;600;700;800;900&display=swap');
+    
+    /* Theme Variables */
     :root{
       --bg:#121212;
-      --surface:#1A1A1A;
-      --primary:#FF8C42;
+      --surface:#1E1E1E;
       --on:#FFFFFF;
+      
+      /* Default Theme: Blue */
+      --primary: #3B82F6;
+      --primary-rgb: 59, 130, 246;
+    }
+
+    /* Theme Overrides */
+    [data-theme="orange"] {
+      --primary: #FF8C42;
+      --primary-rgb: 255, 140, 66;
+    }
+    [data-theme="purple"] {
+      --primary: #8B5CF6;
+      --primary-rgb: 139, 92, 246;
     }
 
     html, body {
       background: var(--bg);
-      touch-action: none;
+      touch-action: none; 
       overscroll-behavior: none;
       -webkit-tap-highlight-color: transparent;
       height: 100%;
       overflow: hidden;
     }
-    
-    @import url('https://fonts.googleapis.com/css2?family=Pretendard:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+    /* 배경 앰비언트 효과 */
+    @keyframes floatLight {
+      0%, 100% { transform: translate(0, 0); opacity: 0.3; }
+      50% { transform: translate(-20px, 20px); opacity: 0.6; }
+    }
+
+    /* 테마 전환 애니메이션 */
+    body, button, iconify-icon, div, span, input {
+      transition: color 0.3s, background-color 0.3s, border-color 0.3s, box-shadow 0.3s;
+    }
   </style>
   <script>
     tailwind.config = {
@@ -35,153 +60,171 @@
           colors: {
             drs: {
               bg: 'var(--bg)',
-              header: "#1A1A1A",
               surface: 'var(--surface)',
-              border: "#404040",
+              border: "#333333",
               on: 'var(--on)',
-              on2: "#E0E0E0",
-              off: "#616161",
+              on2: "#A0A0A0",
               primary: 'var(--primary)'
-            },
-            kakao: "#FFE812",
-            naver: "#00C73C"
+            }
           },
           boxShadow: {
-            soft: "0 16px 40px rgba(0,0,0,.45)",
-            ring: "0 0 0 3px rgba(255,140,66,.18)"
+            glow: "0 4px 20px rgba(var(--primary-rgb), 0.4)",
+            input: "inset 0 2px 4px rgba(0,0,0,0.2)"
           }
         }
       }
     }
   </script>
 </head>
-<body>
-  <div class="w-full h-screen flex flex-col bg-drs-bg font-pretendard text-drs-on">
-    <!-- Main -->
-    <main class="flex-1 overflow-y-auto px-5 pt-7 pb-[34px]">
-      <!-- Title -->
-        <section class="mt-4 mb-10">
-          <div class="mb-6">
-              <div class="text-[42px] font-extrabold tracking-[-0.05em] leading-none">
-                <span class="text-primary">Drs</span><span class="text-white">AI</span>
-              </div>
-          </div>
-        </section>
+<body class="bg-drs-bg font-pretendard text-drs-on h-[100dvh] w-full flex flex-col relative overflow-hidden">
 
-      <!-- Form -->
-      <section class="mt-8">
-        <form>
-          <!-- ID / Email -->
-          <div>
-            <label for="login-id" class="block text-[13px] font-medium text-drs-on2/80">아이디 또는 이메일</label>
-            <div class="mt-2 relative">
-              <span class="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-drs-on2/60">
-                <iconify-icon icon="lucide:mail" class="text-[18px]"></iconify-icon>
-              </span>
-              <input
-                id="login-id"
-                name="login-id"
-                type="email"
-                inputmode="email"
-                autocomplete="username"
-                placeholder="example@email.com"
-                class="h-[52px] w-full rounded-xl bg-drs-surface ring-1 ring-drs-border pl-11 pr-4 text-[15px] text-drs-on placeholder:text-drs-on2/40 outline-none transition focus:ring-2 focus:ring-drs-primary focus:shadow-ring"
-              />
+  <div class="absolute inset-0 overflow-hidden pointer-events-none z-0">
+    <div class="absolute top-[-10%] left-[-10%] w-[80vw] h-[80vw] bg-drs-primary/10 rounded-full blur-[80px]" style="animation: floatLight 8s ease-in-out infinite;"></div>
+  </div>
+
+  <div class="absolute top-6 right-6 z-50 flex gap-2">
+    <button onclick="setTheme('blue')" class="w-6 h-6 rounded-full bg-[#3B82F6] ring-2 ring-[#121212] ring-offset-2 ring-offset-[#3B82F6]/50 hover:scale-110 transition active:scale-95" title="Blue Theme"></button>
+    <button onclick="setTheme('orange')" class="w-6 h-6 rounded-full bg-[#FF8C42] ring-2 ring-[#121212] ring-offset-2 ring-offset-[#FF8C42]/50 hover:scale-110 transition active:scale-95" title="Orange Theme"></button>
+    <button onclick="setTheme('purple')" class="w-6 h-6 rounded-full bg-[#8B5CF6] ring-2 ring-[#121212] ring-offset-2 ring-offset-[#8B5CF6]/50 hover:scale-110 transition active:scale-95" title="Purple Theme"></button>
+  </div>
+
+  <main class="relative z-10 flex-1 w-full overflow-y-auto no-scrollbar">
+    
+    <div class="min-h-full flex flex-col justify-center px-6 py-12">
+
+      <section class="flex flex-col items-center mb-10 shrink-0">
+        <div class="relative mb-6">
+            <div class="absolute inset-0 bg-drs-primary/20 rounded-full blur-[40px] animate-[pulse_3s_infinite]"></div>
+            
+            <img 
+                src="/images/logo_white.png" 
+                alt="DrsAI Logo" 
+                class="relative w-[140px] h-auto object-contain drop-shadow-lg"
+            >
+        </div>
+        <p class="text-[15px] text-drs-on2 font-medium text-center">스마트한 수면의 시작</p>
+      </section>
+
+      <form class="w-full space-y-5 shrink-0">
+        
+        <div class="space-y-1.5">
+          <label for="login-id" class="block text-[14px] font-bold text-drs-on2 ml-1">이메일</label>
+          <div class="relative group">
+            <div class="absolute left-4 top-1/2 -translate-y-1/2 text-drs-on2 transition-colors group-focus-within:text-drs-primary">
+              <iconify-icon icon="lucide:mail" class="text-[20px]"></iconify-icon>
             </div>
+            <input
+              id="login-id"
+              type="email"
+              inputmode="email"
+              autocomplete="username"
+              placeholder="example@email.com"
+              class="h-[56px] w-full rounded-2xl bg-drs-surface border border-drs-border pl-12 pr-4 text-[16px] text-white placeholder:text-white/20 outline-none transition-all focus:border-drs-primary focus:ring-1 focus:ring-drs-primary shadow-input"
+            />
           </div>
+        </div>
 
-          <!-- Password -->
-          <div class="mt-5">
-            <label for="login-password" class="block text-[13px] font-medium text-drs-on2/80">비밀번호</label>
-            <div class="mt-2 relative">
-              <span class="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-drs-on2/60">
-                <iconify-icon icon="lucide:lock" class="text-[18px]"></iconify-icon>
-              </span>
-              <input
-                id="login-password"
-                name="login-password"
-                type="password"
-                autocomplete="current-password"
-                placeholder="비밀번호를 입력하세요"
-                class="h-[52px] w-full rounded-xl bg-drs-surface ring-1 ring-drs-border pl-11 pr-12 text-[15px] text-drs-on placeholder:text-drs-on2/40 outline-none transition focus:ring-2 focus:ring-drs-primary focus:shadow-ring"
-              />
-              <button
-                type="button"
-                class="absolute right-2 top-1/2 -translate-y-1/2 h-11 w-11 inline-flex items-center justify-center rounded-xl text-drs-on2/70 hover:bg-white/5 active:bg-white/10 transition"
-                aria-label="비밀번호 표시/숨김"
-              >
-                <iconify-icon icon="lucide:eye" class="text-[18px]"></iconify-icon>
-              </button>
+        <div class="space-y-1.5">
+          <label for="login-password" class="block text-[14px] font-bold text-drs-on2 ml-1">비밀번호</label>
+          <div class="relative group">
+            <div class="absolute left-4 top-1/2 -translate-y-1/2 text-drs-on2 transition-colors group-focus-within:text-drs-primary">
+              <iconify-icon icon="lucide:lock" class="text-[20px]"></iconify-icon>
             </div>
-          </div>
-
-          <!-- Options -->
-          <div class="mt-5 flex flex-row gap-3 justify-between">
-            <label class="flex items-center gap-3">
-            </label>
-            <label class="flex items-center gap-3">
-              <input
-                type="checkbox"
-                class="h-[18px] w-[18px] rounded-[5px] border border-drs-border bg-drs-surface text-drs-primary focus:ring-2 focus:ring-drs-primary/60 focus:ring-offset-0"
-              />
-              <span class="text-[14px] text-drs-on2/85">자동 로그인</span>
-            </label>
-          </div>
-
-          <!-- Login Button -->
-          <div class="mt-7">
+            <input
+              id="login-password"
+              type="password"
+              autocomplete="current-password"
+              placeholder="비밀번호 입력"
+              class="h-[56px] w-full rounded-2xl bg-drs-surface border border-drs-border pl-12 pr-12 text-[16px] text-white placeholder:text-white/20 outline-none transition-all focus:border-drs-primary focus:ring-1 focus:ring-drs-primary shadow-input"
+            />
             <button
               type="button"
-              onclick="location.href='scan.html'"
-              class="h-[52px] w-full rounded-xl bg-drs-primary text-[#1A1A1A] text-[16px] font-semibold tracking-tight shadow-soft hover:brightness-105 active:brightness-95 transition"
-              aria-label="로그인"
+              class="absolute right-0 top-0 h-[56px] w-[50px] flex items-center justify-center text-drs-on2 hover:text-white transition-colors"
+              aria-label="비밀번호 표시/숨김"
             >
-              로그인
+              <iconify-icon icon="lucide:eye" class="text-[20px]"></iconify-icon>
             </button>
           </div>
-
-          <!-- Links -->
-          <div class="mt-5 flex items-center justify-center gap-2 text-[13px]">
-            <a id="login-find-id-link" href="#" class="text-drs-on2/70 hover:text-drs-primary transition">아이디 찾기</a>
-            <span class="text-drs-on2/30">|</span>
-            <a id="login-find-password-link" href="#" class="text-drs-on2/70 hover:text-drs-primary transition">비밀번호 찾기</a>
-            <span class="text-drs-on2/30">|</span>
-            <a id="login-signup-link" href="#" class="text-drs-primary hover:text-drs-primary/90 transition font-medium">회원가입</a>
-          </div>
-        </form>
-      </section>
-
-      <!-- Social Login -->
-      <section class="mt-9">
-        <div class="flex items-center gap-3 mb-9">
-          <div class="h-px flex-1 bg-white/10"></div>
-          <h2 class="text-[13px] font-medium text-drs-on2/70">다른 방법으로 로그인</h2>
-          <div class="h-px flex-1 bg-white/10"></div>
         </div>
 
-        <div class="flex items-center justify-center gap-6">
-            <button type="button" class="group relative transition-transform hover:-translate-y-1 active:scale-95">
-            <img src="/images/kakao_login.png" alt="Kakao Login" class="w-[52px] h-[52px] rounded-full object-cover shadow-lg ring-1 ring-white/5 group-hover:ring-white/20 transition-all">
-            <div class="absolute -bottom-6 left-1/2 -translate-x-1/2 text-[11px] text-white/0 group-hover:text-white/50 transition-colors whitespace-nowrap">카카오</div>
-            </button>
-
-            <button type="button" class="group relative transition-transform hover:-translate-y-1 active:scale-95">
-            <img src="/images/naver_login.png" alt="Naver Login" class="w-[52px] h-[52px] rounded-full object-cover shadow-lg ring-1 ring-white/5 group-hover:ring-white/20 transition-all">
-            <div class="absolute -bottom-6 left-1/2 -translate-x-1/2 text-[11px] text-white/0 group-hover:text-white/50 transition-colors whitespace-nowrap">네이버</div>
-            </button>
-
-            <button type="button" class="group relative transition-transform hover:-translate-y-1 active:scale-95">
-            <img src="/images/apple_login.png" alt="Apple Login" class="w-[52px] h-[52px] rounded-full object-cover shadow-lg ring-1 ring-white/5 group-hover:ring-white/20 transition-all">
-            <div class="absolute -bottom-6 left-1/2 -translate-x-1/2 text-[11px] text-white/0 group-hover:text-white/50 transition-colors whitespace-nowrap">Apple</div>
-            </button>
+        <div class="flex items-center justify-between pt-1 px-1">
+          <label class="flex items-center gap-2 cursor-pointer group">
+            <div class="relative flex items-center">
+              <input type="checkbox" class="peer sr-only" checked />
+              <div class="w-5 h-5 rounded-md border border-drs-border bg-drs-surface peer-checked:bg-drs-primary peer-checked:border-drs-primary transition-all"></div>
+              <iconify-icon icon="lucide:check" class="absolute inset-0 m-auto text-[20px] text-black opacity-0 peer-checked:opacity-100 transition-opacity"></iconify-icon>
+            </div>
+            <span class="text-[14px] text-drs-on2 group-hover:text-white transition-colors">자동 로그인</span>
+          </label>
+          
+          <a href="#" class="text-[13px] text-drs-on2 hover:text-drs-primary transition-colors underline decoration-transparent hover:decoration-drs-primary/50 underline-offset-4">
+            비밀번호 찾기
+          </a>
         </div>
 
-        <p class="mt-6 text-center text-[12px] leading-relaxed text-drs-on2/50">
-          로그인하면 <a id="login-terms-link" href="#" class="text-drs-on2/70 hover:text-drs-primary transition">이용약관</a> 및
-          <a id="login-privacy-link" href="#" class="text-drs-on2/70 hover:text-drs-primary transition">개인정보 처리방침</a>에<br/> 동의한 것으로 간주됩니다.
+        <div class="pt-4">
+          <button
+            type="button"
+            onclick="location.href='scan.html'"
+            class="h-[56px] w-full rounded-2xl bg-drs-primary text-[#121212] text-[16px] font-bold tracking-tight shadow-glow hover:brightness-110 active:scale-[0.98] transition-all"
+          >
+            로그인
+          </button>
+        </div>
+
+        <div class="text-center pt-2">
+          <span class="text-[14px] text-white/40">계정이 없으신가요?</span>
+          <a href="#" class="ml-2 text-[14px] font-bold text-drs-primary hover:underline underline-offset-4 decoration-drs-primary/50">
+            회원가입
+          </a>
+        </div>
+
+      </form>
+
+      <section class="mt-10 shrink-0">
+        <div class="relative flex items-center justify-center mb-6">
+          <div class="absolute inset-0 border-t border-white/10"></div>
+          <span class="relative bg-drs-bg px-3 text-[12px] text-white/30">간편 로그인</span>
+        </div>
+
+        <div class="flex items-center justify-center gap-5">
+          <button type="button" class="group relative transition-transform hover:-translate-y-1 active:scale-95" aria-label="카카오 로그인">
+            <div class="w-[50px] h-[50px] rounded-full overflow-hidden shadow-lg ring-1 ring-white/5 group-hover:ring-white/20 transition-all">
+               <img src="/images/kakao_login.png" alt="" class="w-full h-full object-cover">
+            </div>
+          </button>
+
+          <button type="button" class="group relative transition-transform hover:-translate-y-1 active:scale-95" aria-label="네이버 로그인">
+            <div class="w-[50px] h-[50px] rounded-full overflow-hidden shadow-lg ring-1 ring-white/5 group-hover:ring-white/20 transition-all">
+               <img src="/images/naver_login.png" alt="" class="w-full h-full object-cover">
+            </div>
+          </button>
+
+          <button type="button" class="group relative transition-transform hover:-translate-y-1 active:scale-95" aria-label="애플 로그인">
+            <div class="w-[50px] h-[50px] rounded-full overflow-hidden shadow-lg ring-1 ring-white/5 group-hover:ring-white/20 transition-all">
+               <img src="/images/apple_login.png" alt="" class="w-full h-full object-cover">
+            </div>
+          </button>
+        </div>
+        
+        <p class="mt-8 text-center text-[11px] leading-relaxed text-white/20">
+          로그인 시 <a href="#" class="hover:text-white/40 underline">이용약관</a> 및 <a href="#" class="hover:text-white/40 underline">개인정보처리방침</a>에<br/>동의하는 것으로 간주합니다.
         </p>
       </section>
-    </main>
-  </div>
+
+    </div>
+  </main>
+
+  <script>
+    // Theme Switcher Logic
+    function setTheme(theme) {
+        document.documentElement.setAttribute('data-theme', theme);
+        
+        // (Optional) Change logo image based on theme if you have different colored logos
+        // const logo = document.querySelector('img[alt="DrsAI Logo"]');
+        // if(theme === 'blue') logo.src = '/images/logo_blue.png';
+        // if(theme === 'orange') logo.src = '/images/logo_orange.png';
+    }
+  </script>
 </body>
 </html>

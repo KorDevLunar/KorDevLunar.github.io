@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+  <title>DrsAI · 홈</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
+
+  <style>
+    .scrollbar-hide::-webkit-scrollbar { display: none; }
+    .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+
+    /* CSS Variables for Dynamic Theming */
+    :root {
+      /* Default: Blue */
+      --primary: #3B82F6;
+      --primary-rgb: 59, 130, 246; /* For opacity calculations */
+    }
+
+    /* Theme Overrides via Data Attributes */
+    [data-theme="orange"] {
+      --primary: #FF8C42;
+      --primary-rgb: 255, 140, 66;
+    }
+    [data-theme="purple"] {
+      --primary: #8B5CF6;
+      --primary-rgb: 139, 92, 246;
+    }
+
+    /* Animations using Variables */
+    @keyframes pulseRing {
+      0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(var(--primary-rgb), 0.4); }
+      70% { transform: scale(1.02); box-shadow: 0 0 0 20px rgba(var(--primary-rgb), 0); }
+      100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(var(--primary-rgb), 0); }
+    }
+
+    @keyframes floatLight {
+      0%, 100% { transform: translate(0, 0); opacity: 0.5; }
+      50% { transform: translate(-20px, 20px); opacity: 0.8; }
+    }
+    
+    @keyframes slideDown {
+      from { opacity: 0; transform: translateY(-10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Theme Transition */
+    body, button, iconify-icon, div, span {
+      transition: color 0.3s, background-color 0.3s, border-color 0.3s, box-shadow 0.3s;
+    }
+  </style>
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            pretendard: ['Pretendard', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+          },
+          colors: {
+            bg: "#121212",
+            surface: "#1E1E1E",
+            primary: "var(--primary)", /* Dynamic Color */
+            on: "#FFFFFF",
+            muted: "#9CA3AF"
+          },
+          boxShadow: {
+            glass: "0 8px 32px 0 rgba(0, 0, 0, 0.37)",
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-bg text-on font-pretendard h-[100dvh] w-full flex flex-col overflow-hidden relative">
+
+  <div class="absolute inset-0 overflow-hidden pointer-events-none z-0">
+    <div class="absolute top-[-10%] left-[-10%] w-[80vw] h-[80vw] bg-primary/10 rounded-full blur-[80px]" style="animation: floatLight 8s ease-in-out infinite;"></div>
+  </div>
+
+  <header class="relative z-20 shrink-0 px-6 pt-[calc(1.8rem+env(safe-area-inset-top))] pb-4 flex items-center justify-between">
+    <div class="flex flex-col">
+        <img src="/images/logo_white.png" alt="DrsAI Logo" class="h-[30px] w-auto object-contain self-start">
+        <h1 class="text-[24px] font-bold leading-none ps-1 mt-2">안녕하세요, <span class="text-primary">닥터스</span>님</h1>
+    </div>
+    <button class="w-11 h-11 -mr-2 inline-flex items-center justify-center rounded-full text-white/80 hover:bg-white/10 transition active:scale-95">
+        <div class="relative">
+            <iconify-icon icon="lucide:bell" width="26"></iconify-icon>
+            <span class="absolute top-0.5 right-0.5 w-2.5 h-2.5 bg-red-500 rounded-full border-2 border-[#121212]"></span>
+        </div>
+    </button>
+  </header>
+
+  <main class="relative z-10 flex-1 flex flex-col w-full overflow-y-auto scrollbar-hide pb-[80px]">
+    
+    <div class="px-6 mb-2 flex justify-end gap-2 animate-[slideDown_0.6s_ease-out]">
+        <span class="text-[14px] font-bold">테마 변경</span>
+        <button onclick="setTheme('blue')" class="w-6 h-6 rounded-full bg-[#3B82F6] ring-2 ring-[#121212] ring-offset-2 ring-offset-[#3B82F6]/50 hover:scale-110 transition active:scale-95" title="Blue Theme"></button>
+        <button onclick="setTheme('orange')" class="w-6 h-6 rounded-full bg-[#FF8C42] ring-2 ring-[#121212] ring-offset-2 ring-offset-[#FF8C42]/50 hover:scale-110 transition active:scale-95" title="Orange Theme"></button>
+        <button onclick="setTheme('purple')" class="w-6 h-6 rounded-full bg-[#8B5CF6] ring-2 ring-[#121212] ring-offset-2 ring-offset-[#8B5CF6]/50 hover:scale-110 transition active:scale-95" title="Purple Theme"></button>
+    </div>
+
+    <section class="px-6 mt-2 animate-[slideDown_0.6s_ease-out]">
+        <div class="w-full bg-[#1E1E1E] border border-white/10 rounded-[24px] p-5 flex items-center gap-4 shadow-lg">
+            <div class="w-12 h-12 shrink-0 rounded-full bg-white text-[#121212] flex items-center justify-center">
+                <iconify-icon icon="lucide:smile" class="text-[28px]"></iconify-icon>
+            </div>
+            <div class="text-[16px] text-white/95 leading-[1.4] font-medium break-keep">
+                방안을 잠들기 좋은 환경으로<br>맞춰두었어요.
+            </div>
+        </div>
+    </section>
+
+    <section class="flex-1 flex flex-col items-center justify-center min-h-[260px] relative">
+        <button 
+            type="button"
+            class="group relative w-[210px] h-[210px] rounded-full flex flex-col items-center justify-center transition-all duration-300 active:scale-95"
+            style="animation: pulseRing 3s infinite;"
+        >
+            <div class="absolute inset-0 rounded-full bg-gradient-to-tr from-primary/30 to-transparent blur-xl"></div>
+            
+            <div class="absolute inset-0 rounded-full bg-[#1E1E1E]/90 backdrop-blur-xl border border-white/10 shadow-glass flex items-center justify-center">
+                <div class="absolute inset-1 rounded-full border border-white/5 bg-gradient-to-b from-white/5 to-transparent"></div>
+            </div>
+
+            <div class="relative z-10 flex flex-col items-center">
+                <iconify-icon icon="lucide:moon" class="text-[46px] text-primary mb-1.5 drop-shadow-[0_0_15px_rgba(var(--primary-rgb), 0.6)]"></iconify-icon>
+                <span class="text-[28px] font-bold tracking-tight text-white">잠자기</span>
+                <span class="text-[14px] font-medium text-white/60 mt-1">Touch to Sleep</span>
+            </div>
+        </button>
+    </section>
+
+    <section class="w-full shrink-0 px-6 mb-4">
+        
+        <div class="flex items-end justify-between mb-4">
+            <div>
+                <h2 class="text-[20px] font-bold text-white leading-tight">등록된 제품</h2>
+                <p class="text-[14px] text-white/60 mt-1 leading-snug">
+                    자는 동안 최적의 환경으로 조절됩니다.
+                </p>
+            </div>
+            
+            <button class="flex items-center gap-1.5 px-3 py-2 rounded-full bg-white/10 hover:bg-white/15 border border-white/10 transition-colors active:scale-95">
+                <iconify-icon icon="lucide:plus" class="text-[16px] text-primary"></iconify-icon>
+                <span class="text-[13px] text-white font-medium">추가</span>
+            </button>
+        </div>
+
+        <div class="w-full overflow-x-auto scrollbar-hide">
+            <div class="flex gap-3 w-max min-w-full">
+                
+                <button onclick="toggleDevice(this)" class="device-card relative w-[calc((100vw-48px-24px)/3)] min-w-[105px] aspect-[3/4.2] rounded-[22px] bg-[#1E1E1E] border border-primary/50 p-3.5 flex flex-col justify-between shadow-[0_4px_20px_rgba(0,0,0,0.3)] shrink-0 active:scale-[0.98] transition-all duration-300 group" data-status="on">
+                    <div class="flex justify-between items-start">
+                        <div class="icon-box w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center text-primary transition-colors duration-300">
+                            <iconify-icon icon="lucide:bed-double" width="20"></iconify-icon>
+                        </div>
+                        <div class="status-dot w-2.5 h-2.5 rounded-full bg-primary shadow-[0_0_8px_rgba(var(--primary-rgb),0.8)] transition-colors duration-300"></div>
+                    </div>
+                    <div class="text-left w-full">
+                        <span class="dev-name block text-[15px] font-bold text-white truncate w-full transition-opacity duration-300">안방 매트</span>
+                        <span class="dev-status block text-[13px] text-primary mt-0.5 font-medium truncate transition-colors duration-300">36.5°C</span>
+                    </div>
+                </button>
+
+                <button onclick="toggleDevice(this)" class="device-card relative w-[calc((100vw-48px-24px)/3)] min-w-[105px] aspect-[3/4.2] rounded-[22px] bg-[#1E1E1E] border border-white/5 p-3.5 flex flex-col justify-between shrink-0 opacity-80 hover:opacity-100 transition-all duration-300 active:scale-[0.98] group" data-status="off">
+                    <div class="flex justify-between items-start">
+                        <div class="icon-box w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-white/40 transition-colors duration-300">
+                            <iconify-icon icon="lucide:box" width="20"></iconify-icon>
+                        </div>
+                        <div class="status-dot w-2.5 h-2.5 rounded-full bg-white/10 transition-colors duration-300"></div>
+                    </div>
+                    <div class="text-left w-full">
+                        <span class="dev-name block text-[15px] font-bold text-white/80 truncate w-full transition-opacity duration-300">거실 큐브</span>
+                        <span class="dev-status block text-[13px] text-white/40 mt-0.5 font-medium truncate transition-colors duration-300">대기 중</span>
+                    </div>
+                </button>
+
+                <button onclick="toggleDevice(this)" class="device-card relative w-[calc((100vw-48px-24px)/3)] min-w-[105px] aspect-[3/4.2] rounded-[22px] bg-[#1E1E1E] border border-white/5 p-3.5 flex flex-col justify-between shrink-0 opacity-80 hover:opacity-100 transition-all duration-300 active:scale-[0.98] group" data-status="off">
+                    <div class="flex justify-between items-start">
+                        <div class="icon-box w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-white/40 transition-colors duration-300">
+                            <iconify-icon icon="lucide:thermometer" width="20"></iconify-icon>
+                        </div>
+                        <div class="status-dot w-2.5 h-2.5 rounded-full bg-white/10 transition-colors duration-300"></div>
+                    </div>
+                    <div class="text-left w-full">
+                        <span class="dev-name block text-[15px] font-bold text-white/80 truncate w-full transition-opacity duration-300">온열기</span>
+                        <span class="dev-status block text-[13px] text-white/40 mt-0.5 font-medium truncate transition-colors duration-300">대기 중</span>
+                    </div>
+                </button>
+
+            </div>
+        </div>
+    </section>
+
+  </main>
+
+  <nav class="fixed bottom-0 left-0 right-0 z-50 bg-[#121212]/95 backdrop-blur-xl border-t border-white/5 pb-[calc(8px+env(safe-area-inset-bottom))] pt-3 transition-colors duration-300">
+    <div class="grid grid-cols-3 w-full max-w-md mx-auto">
+        
+        <a id="nav-home" href="javascript:void(0)" onclick="switchTab('nav-home')" class="flex flex-col items-center justify-center gap-1 relative group">
+            <iconify-icon icon="lucide:home" class="text-[26px] text-primary transition-all duration-300 group-active:scale-90"></iconify-icon>
+            <span class="text-[12px] font-bold text-primary transition-all duration-300">홈</span>
+        </a>
+
+        <a id="nav-sleep" href="javascript:void(0)" onclick="switchTab('nav-sleep')" class="flex flex-col items-center justify-center gap-1 group opacity-60 hover:opacity-100 transition-all duration-300">
+            <iconify-icon icon="lucide:moon" class="text-[26px] text-white transition-all duration-300 group-active:scale-90"></iconify-icon>
+            <span class="text-[12px] font-medium text-white transition-all duration-300">수면</span>
+        </a>
+
+        <a id="nav-my" href="javascript:void(0)" onclick="switchTab('nav-my')" class="flex flex-col items-center justify-center gap-1 group opacity-60 hover:opacity-100 transition-all duration-300">
+            <iconify-icon icon="lucide:user" class="text-[26px] text-white transition-all duration-300 group-active:scale-90"></iconify-icon>
+            <span class="text-[12px] font-medium text-white transition-all duration-300">마이</span>
+        </a>
+
+    </div>
+  </nav>
+
+  <script>
+    // --- Theme Switcher ---
+    function setTheme(theme) {
+        document.documentElement.setAttribute('data-theme', theme);
+    }
+
+    // --- Device Card Interaction ---
+    function toggleDevice(el) {
+        const status = el.getAttribute('data-status');
+        const isTurningOn = status === 'off';
+        
+        const iconBox = el.querySelector('.icon-box');
+        const statusDot = el.querySelector('.status-dot');
+        const devName = el.querySelector('.dev-name');
+        const devStatus = el.querySelector('.dev-status');
+
+        if (isTurningOn) {
+            el.setAttribute('data-status', 'on');
+            el.classList.remove('opacity-80', 'border-white/5');
+            el.classList.add('border-primary/50', 'shadow-[0_4px_20px_rgba(0,0,0,0.3)]');
+            
+            iconBox.classList.remove('bg-white/5', 'text-white/40');
+            iconBox.classList.add('bg-primary/20', 'text-primary');
+            
+            statusDot.classList.remove('bg-white/10');
+            statusDot.classList.add('bg-primary');
+            // Remove hardcoded shadow to use theme color
+            statusDot.style.boxShadow = "0 0 8px var(--primary)"; 
+            
+            devName.classList.remove('text-white/80');
+            devName.classList.add('text-white');
+            devStatus.innerText = '연결됨';
+            devStatus.classList.remove('text-white/40');
+            devStatus.classList.add('text-primary');
+
+        } else {
+            el.setAttribute('data-status', 'off');
+            el.classList.add('opacity-80', 'border-white/5');
+            el.classList.remove('border-primary/50', 'shadow-[0_4px_20px_rgba(0,0,0,0.3)]');
+            
+            iconBox.classList.add('bg-white/5', 'text-white/40');
+            iconBox.classList.remove('bg-primary/20', 'text-primary');
+            
+            statusDot.classList.add('bg-white/10');
+            statusDot.classList.remove('bg-primary');
+            statusDot.style.boxShadow = "none";
+            
+            devName.classList.add('text-white/80');
+            devName.classList.remove('text-white');
+            devStatus.innerText = '대기 중';
+            devStatus.classList.add('text-white/40');
+            devStatus.classList.remove('text-primary');
+        }
+    }
+
+    // --- Footer Tab Interaction ---
+    function switchTab(selectedId) {
+        const tabs = ['nav-home', 'nav-sleep', 'nav-my'];
+        
+        tabs.forEach(id => {
+            const el = document.getElementById(id);
+            const icon = el.querySelector('iconify-icon');
+            const label = el.querySelector('span');
+
+            if (id === selectedId) {
+                el.classList.remove('opacity-60');
+                icon.classList.remove('text-white');
+                icon.classList.add('text-primary');
+                label.classList.remove('text-white', 'font-medium');
+                label.classList.add('text-primary', 'font-bold');
+            } else {
+                el.classList.add('opacity-60');
+                icon.classList.add('text-white');
+                icon.classList.remove('text-primary');
+                label.classList.add('text-white', 'font-medium');
+                label.classList.remove('text-primary', 'font-bold');
+            }
+        });
+    }
+  </script>
+
+</body>
+</html>
